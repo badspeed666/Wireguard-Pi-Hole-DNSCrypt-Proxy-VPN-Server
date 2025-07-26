@@ -77,7 +77,7 @@ rm -rf minisign-*
 # Setup auto-update script
 cp -f $dir/dnscrypt-proxy-update.sh .
 chmod +x dnscrypt-proxy-update.sh
-echo "0 */12 * * * /url/local/dnscrypt-proxy-update.sh" > /var/spool/cron/crontabs/root
+echo "0 */12 * * * /opt/dnscrypt-proxy/dnscrypt-proxy-update.sh" >> /var/spool/cron/crontabs/root
 cd $dir
 
 echo "Setting up Pi-hole"
@@ -94,7 +94,7 @@ pihole -a -p
 # Setup whitelist
 git clone https://github.com/anudeepND/whitelist.git /opt/whitelist
 python3 /opt/whitelist/scripts/whitelist.py
-echo "0 1 * * */7     root    /opt/whitelist/scripts/whitelist.py" > /var/spool/cron/crontabs/root
+echo "0 1 * * */7 /opt/whitelist/scripts/whitelist.py" >> /var/spool/cron/crontabs/root
 
 echo "Setting up wireguard"
 sleep 1
