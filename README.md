@@ -26,15 +26,15 @@ Sets up your very own VPN server with my configs
 * Installs fail2ban and sets up a couple rules for security
 * Wireguard - vpn tunnel
 * Pi-hole - ad blocker
-* DNSCrypt-proxy - caches, encrypts, and annoymizes dns requests
+* DNSCrypt-proxy - caches, encrypts, and anonymizes dns requests
 
 ## Super Simplified and Probably Partly Incorrect How it Works 
-* Device connects to server via wireguard tunnel -> Pi-Hole filters out ads/crap -> DNSCrypt encrypts, authenticates, and annonymizes dns requests being sent out of the server and back
+* Device connects to server via wireguard tunnel -> Pi-Hole filters out ads/crap -> DNSCrypt encrypts, authenticates, and anonymizes dns requests being sent out of the server and back
 
 ## Why not Unbound + Dnscrypt-Proxy?
 * DNSSEC/Security: dnscrypt-proxy enforces dnssec/encrypts dns requests and is what communicates with the outside world. Unbound also enforces DNSSEC but since it forwards requests to dnscrypt-proxy, what unbound does here doesn't really matter (dnscrypt-proxy enforces DNSSEC too btw)
 * Privacy: thanks to anonymous relays, dnscrypt-proxy hides your IP so all outgoing dns requests aren't traced back to you. Once again, unbound doesn't really help here and has no equivalent function at the time of me writing this
-* Bascially, the addition of anonymized relays negates the need for unbound
+* Basically, the addition of anonymized relays negates the need for unbound
 * [See @jedisct1 comment for my reasoning behind unbound/dnscrypt-proxy setup for security/privacy](https://www.reddit.com/r/privacytoolsIO/comments/98ggn4/unbound_recursive_or_dnscrypt/e4h5sre?utm_source=share&utm_medium=web2x&context=3)
 
 
@@ -55,8 +55,8 @@ Sets up your very own VPN server with my configs
 ## How to Install
 * ssh into your server as root
 * `apt update && apt upgrade -y && apt install git -y && reboot`
-* `git clone https://github.com/Zackptg5/Wireguard-Pi-Hole-DNSCrypt-VPN-Server`
-* `cd Wireguard-Pi-Hole-DNSCrypt-VPN-Server`
+* `git clone https://github.com/Zackptg5/Wireguard-Pi-Hole-DNSCrypt-Proxy-VPN-Server`
+* `cd Wireguard-Pi-Hole-DNSCrypt-Proxy-VPN-Server`
 * Edit VPS_Setup.bash variables as described above
 * `chmod +x VPS_Setup.bash `
 * `bash VPS_Setup.bash`
@@ -95,7 +95,7 @@ Sets up your very own VPN server with my configs
 * If not using pihole for DHCP, you can remove the labeled ufw firewall rules
 * To see used ports: `lsof -i -P -n`
 * A QR Code for each profile will be outputted during setup. You can take a picture of it with the device you want to use from the wireguard app
-* dnscrypt config (dnscrypt-proxy.toml) is set to use only dnscrypt servers with dnssec, no logging or filtering, and then annonymizes them. [See here for more details.](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS) Note that I was able to wildcard it because the anon relays either didn't have a corresponding public server at the time of writing this or do filtering of some kind and so their servers aren't used (such as cryptostorm). This was a big plus for me because dnscrypt automatically sorts and picks the one with the lowest latency. Feel free to enable DOH or customize these however you want. DOH will require some extra setup though
+* dnscrypt config (dnscrypt-proxy.toml) is set to use only dnscrypt servers with dnssec, no logging or filtering, and then anonymizes them. [See here for more details.](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Anonymized-DNS) Note that I was able to wildcard it because the anon relays either didn't have a corresponding public server at the time of writing this or do filtering of some kind and so their servers aren't used (such as cryptostorm). This was a big plus for me because dnscrypt automatically sorts and picks the one with the lowest latency. Feel free to enable DOH or customize these however you want. DOH will require some extra setup though
 * I have ipv6 enabled
 
 ## Sources I Found Helpful Setting This All Up
@@ -111,3 +111,6 @@ Sets up your very own VPN server with my configs
 * [DNS Leak Test](https://dnsleaktest.com)
 * [DNSSEC Test](dnssec.vs.uni-due.de)
 * [IP Leak Test](https://ipleak.net)
+
+## License
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
